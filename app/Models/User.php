@@ -44,4 +44,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /* Relationship */
+    public function conversations() {
+        return $this->hasMany(Conversation::class, 'sender_id')->orWhere('receiver_id', $this->id);
+    }
 }
