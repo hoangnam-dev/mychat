@@ -12,12 +12,12 @@
                     </h5>
                     <span class="text-sm text-gray-500">{{ $user->email }}</span>
                     <div class="flex mt-4 space-x-3 md:mt-6">
-                        <x-secondary-button>
-                            Add Friend
-                        </x-secondary-button>
                         <x-primary-button>
-                            Message
+                            Add Friend
                         </x-primary-button>
+                        <x-secondary-button wire:click="message({{ $user->id }})">
+                            Message 
+                        </x-secondary-button>
                     </div>
                 </div>
             </div>
