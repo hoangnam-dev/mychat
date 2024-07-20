@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Chat\Chat;
 use App\Livewire\Chat\Index;
+use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,3 +24,5 @@ require __DIR__ . '/auth.php';
 
 Route::get('/chat', Index::class)->middleware(['auth', 'verified'])->name('chat.index');
 Route::get('/chat/{query}', Chat::class)->middleware(['auth', 'verified'])->name('chat');
+
+Route::get('/users', Users::class)->middleware(['auth', 'verified'])->name('users');
