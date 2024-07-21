@@ -21,6 +21,9 @@ class ChatBox extends Component
             'body' => $this->body,
         ]);
         $this->reset('body');
+
+        # push message
+        $this->loadMessages->push($createdMessage);
     }
 
     public function loadMessages()

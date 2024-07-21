@@ -29,10 +29,11 @@
                         'ml-auto' => $message->sender_id === auth()->id(),
                     ])>
                         {{-- Avatar --}}
-                        <div @class(['shrink-0'])>
-                            <x-avatar></x-avatar>
-
-                        </div>
+                        @if ($message->sender_id !== auth()->id())
+                            <div @class(['shrink-0'])>
+                                <x-avatar></x-avatar>
+                            </div>
+                        @endif
 
                         {{-- Message body --}}
                         <div @class([
@@ -90,20 +91,33 @@
         {{-- Send message --}}
         <div class="shrink-0 z-10 bg-white inset-x-0">
             <div class="p-2 border-t">
-                <form x-data="{ body: @entangle('body').defer }" @submit.prevent="$wire.sendMessage" method="POST" autocapitalize="off">
-                    @csrf
+                <form
+                    x-data="{body:@entangle('body').defer}"
+                    @submit.prevent="$wire.sendMessage"
+                    method="POST" autocapitalize="off">
+                @csrf
 
-                    <input type="hidden" autocomplete="false" style="display: none">
+                <input type="hidden" autocomplete="false" style="display:none">
 
-                    <div class="grid grid-cols-12">
-                        <input x-model="body" type="text" name="" id="" autocomplete="off" autofocus
-                            placeholder="Write your message here" maxlength="1700"
-                            class="col-span-10 bg-gray-100 border-0 outline-0 focus:border-0 focus:ring-0 hover:ring-0 rounder-lg focus:outline-none">
-                        <button type="submit" x-bind:disabled="!body.trim()" class="col-span-2">Send</button>
-                    </div>
-                </form>
+                <div class="grid grid-cols-12">
+                     <input 
+                            x-model="body"
+                            wire:model="body"
+                            type="text"
+                            autocomplete="off"
+                            autofocus
+                            placeholder="Write your message here"
+                            maxlength="1700"
+                            class="col-span-10 bg-gray-100 border-0 outline-0 focus:border-0 focus:ring-0 hover:ring-0 rounded-lg  focus:outline-none"
+                     >
+
+                     <button x-bind:disabled="!body.trim()"  class="col-span-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" type='submit'>Send</button>
+
+                </div>
+
+            </form>
                 @error('body')
-                    <p>{{ $error }}</p>
+                    <p>{{ $message }}</p>
                 @enderror
             </div>
         </div>
