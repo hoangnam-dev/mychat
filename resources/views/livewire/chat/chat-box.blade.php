@@ -48,13 +48,13 @@
                                 {{ $message->body }}
                             </p>
 
-                            <div class="ml-auto flex gap-2">
+                            <div class="ml-auto flex">
                                 <p @class([
                                     'text-xs',
                                     'text-gray-200' => !($message->sender_id === auth()->id()),
                                     'text-white' => $message->sender_id === auth()->id(),
                                 ])>
-                                    2:25 pm
+                                    {{ $message->created_at->format('g:i a') }}
                                 </p>
 
                                 {{-- Message status, only show if message belongs auth --}}
