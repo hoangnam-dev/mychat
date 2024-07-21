@@ -50,32 +50,36 @@
                             <div class="ml-auto flex gap-2">
                                 <p @class([
                                     'text-xs',
-                                    'text-gray-500' => !($message->sender_id === auth()->id()),
+                                    'text-gray-200' => !($message->sender_id === auth()->id()),
                                     'text-white' => $message->sender_id === auth()->id(),
                                 ])>
                                     2:25 pm
                                 </p>
 
                                 {{-- Message status, only show if message belongs auth --}}
-                                <div>
-                                    {{-- double ticks --}}
-                                    <span @class('text-white')>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z" />
-                                        </svg>
-                                    </span>
-
-                                    {{-- single ticks --}}
-                                    {{-- <span @class('text-white')>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-check" viewBox="0 0 16 16">
-                                    <path
-                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
-                                </svg>
-                            </span> --}}
-                                </div>
+                                @if ($message->sender_id === auth()->id())
+                                    <div>
+                                        @if ($message->isRead())
+                                            {{-- double ticks --}}
+                                            <span @class('text-white')>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z" />
+                                                </svg>
+                                            </span>
+                                        @else
+                                            {{-- single ticks --}}
+                                            <span @class('text-white')>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                                </svg>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
